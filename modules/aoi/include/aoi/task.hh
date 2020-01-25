@@ -7,6 +7,9 @@
 #include <boost/asio/spawn.hpp>
 #include <boost/uuid/uuid.hpp>
 
+#include <spdlog/logger.h>
+
+#include <any>
 #include <functional>
 #include <initializer_list>
 #include <string>
@@ -21,9 +24,13 @@ namespace aoi {
     virtual void set_have_next(const bool have_next = true);
     virtual void set_next(std::shared_ptr<basic_task> next);
     virtual void set_executor(std::shared_ptr<boost::asio::io_context> executor);
+    virtual void set_file_logger(std::shared_ptr<spdlog::logger> logger);
+    virtual const std::string& log_path();
     virtual boost::uuids::uuid uuid() noexcept { return _uuid; }
     virtual std::shared_ptr<basic_task> next() noexcept { return _next; }
     virtual std::shared_ptr<boost::asio::io_context> executor() noexcept { return _executor; }
+    virtual std::shared_ptr<spdlog::logger> file_logger() noexcept { return _file_logger; }
+    virtual std::map<std::string, std::any> params() noexcept { return _params; }
     virtual const bool is_done() noexcept { return _done_flag; }
     virtual const bool have_next() noexcept { return _have_next; }
   private:
@@ -31,23 +38,24 @@ namespace aoi {
     bool _have_next = false;
     std::shared_ptr<basic_task> _next = nullptr;
     std::shared_ptr<boost::asio::io_context> _executor;
+    std::shared_ptr<spdlog::logger> _file_logger;
     boost::uuids::uuid _uuid;
     const std::string _name;
-
+    std::map<std::string, std::any> _params;
   };
 
 
-  class term_task : public basic_task {
+  class term_task : public basic_task, public std::enable_shared_from_this<term_task> {
   public:
     typedef std::vector<std::string> command_t;
     typedef std::function<void(const std::string, int, const std::string)> handler_t;
     term_task(const std::string& name,const command_t& command, const handler_t& handler = std::move(handler_t{}) );
     term_task(const std::string& name,const std::initializer_list<std::string> command, const handler_t& handler = std::move(handler_t{}) );
 
-    void process_detail(const std::string name, const aoi::term_task::command_t& command, boost::asio::yield_context yield_context);
+    virtual void process_detail(const std::string name, const aoi::term_task::command_t& command, boost::asio::yield_context yield_context);
     void process() override;
 
-
+    std::shared_ptr<basic_task> get_ptr();
 
   private:
 
