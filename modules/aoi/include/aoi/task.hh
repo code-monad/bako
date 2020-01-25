@@ -30,7 +30,7 @@ namespace aoi {
     virtual std::shared_ptr<basic_task> next() noexcept { return _next; }
     virtual std::shared_ptr<boost::asio::io_context> executor() noexcept { return _executor; }
     virtual std::shared_ptr<spdlog::logger> file_logger() noexcept { return _file_logger; }
-    virtual std::map<std::string, std::any> params() noexcept { return _params; }
+    virtual std::map<std::string, std::any>& params() noexcept { return _params; }
     virtual const bool is_done() noexcept { return _done_flag; }
     virtual const bool have_next() noexcept { return _have_next; }
   private:
@@ -64,6 +64,7 @@ namespace aoi {
     const command_t _cmd;
     const handler_t _handler;
   };
+
 
 }
 
