@@ -1,9 +1,7 @@
 
-#-*- mode: org -*-
 #+TITLE:Bako
 #+AUTHOR:Code Monad
 
-* Bako 
 ** Modules
 *** Aoi
 *** Misa
