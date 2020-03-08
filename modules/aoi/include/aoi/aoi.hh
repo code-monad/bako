@@ -4,5 +4,6 @@
 #include <aoi/log.hh>
 #include <aoi/task.hh>
 #include <aoi/work_group.hh>
+#include <aoi/injector.hh>
 
 #endif // __AOI_AOI_HH__

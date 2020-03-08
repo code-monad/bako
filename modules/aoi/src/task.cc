@@ -27,7 +27,7 @@ void aoi::basic_task::set_file_logger(std::shared_ptr<spdlog::logger> file_logge
 
 void aoi::basic_task::set_executor(std::shared_ptr<boost::asio::io_context> executor){ _executor = executor; }
 
-const std::string& aoi::basic_task::log_path() {
+const std::string aoi::basic_task::log_path() {
   if(this->file_logger()->sinks().empty()){
     return std::move(std::string());
   }
@@ -35,7 +35,7 @@ const std::string& aoi::basic_task::log_path() {
   if(sink)
     return sink->filename();
   else
-    return std::move(std::string());
+    return "";
 }
 
 aoi::term_task::term_task(const std::string& name, const aoi::term_task::command_t& command, const aoi::term_task::handler_t& handler) : aoi::basic_task{ name }, _cmd{ command }, _handler{ handler } {

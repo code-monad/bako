@@ -25,7 +25,7 @@ namespace aoi {
     virtual void set_next(std::shared_ptr<basic_task> next);
     virtual void set_executor(std::shared_ptr<boost::asio::io_context> executor);
     virtual void set_file_logger(std::shared_ptr<spdlog::logger> logger);
-    virtual const std::string& log_path();
+    virtual const std::string log_path();
     virtual boost::uuids::uuid uuid() noexcept { return _uuid; }
     virtual std::shared_ptr<basic_task> next() noexcept { return _next; }
     virtual std::shared_ptr<boost::asio::io_context> executor() noexcept { return _executor; }
@@ -64,8 +64,6 @@ namespace aoi {
     const command_t _cmd;
     const handler_t _handler;
   };
-
-
 }
 
 #endif //__AOI_TASK_HH__

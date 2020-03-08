@@ -25,4 +25,4 @@ namespace aoi {
   };
 }
 
-#endif //__AOI_WORKGROUP_HH__
+#endif // __AOI_WORKGROUP_HH__
