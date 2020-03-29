@@ -7,6 +7,7 @@
 #include <boost/asio/spawn.hpp>
 #include <boost/uuid/uuid.hpp>
 
+#include <memory>
 #include <spdlog/logger.h>
 
 #include <any>
@@ -63,6 +64,14 @@ namespace aoi {
 
     const command_t _cmd;
     const handler_t _handler;
+  };
+
+  class http_task : public basic_task, public std::enable_shared_from_this<http_task> {
+  public:
+    //typedef std::function handler_t;
+    http_task(const std::string& name, const std::string& endpoint);
+    //private:
+    //const handler_t _handler;
   };
 }
 

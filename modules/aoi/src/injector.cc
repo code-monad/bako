@@ -24,6 +24,11 @@ std::unique_ptr<aoi::work_group> aoi::injector::parse(const aoi::injector::input
   return std::move(work_group);
 }
 
+//std::unique_ptr<aoi::work_group> aoi::injector::parse(const std::string input) {
+//  return this->parse(json::parse(input));
+//}
+
+
 std::shared_ptr<aoi::basic_task> aoi::injector::parse_task(const aoi::injector::input_type& input, const std::string task_type, const std::string name) {
   std::shared_ptr<aoi::basic_task> task;
   switch(hash(task_type.c_str())){
@@ -31,6 +36,8 @@ std::shared_ptr<aoi::basic_task> aoi::injector::parse_task(const aoi::injector::
     {	
       task = std::make_shared<aoi::term_task>(name, input.get<std::vector<std::string>>());
     }
+    break;
+  case hash("http"):
     break;
   default:
     throw std::runtime_error("unknow task type");

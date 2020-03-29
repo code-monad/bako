@@ -17,7 +17,7 @@ namespace aoi {
 
   class file_logger {
   public:
-    file_logger(const std::string& file_name, spdlog::level::level_enum level = spdlog::level::debug, const std::string& base_dir = "./log/tasks");
+    file_logger(const std::string& file_name, spdlog::level::level_enum level = spdlog::level::debug, const std::string base_dir = "./log/tasks");
     std::shared_ptr<spdlog::logger> get();
     void set_level(spdlog::level::level_enum level);
 

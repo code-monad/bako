@@ -42,7 +42,7 @@ void logger::set_level(spdlog::level::level_enum level) {
 
 
 
-file_logger::file_logger(const std::string& name, spdlog::level::level_enum level, const std::string& base_dir) : _logger{spdlog::get(name)} {
+file_logger::file_logger(const std::string& name, spdlog::level::level_enum level, const std::string base_dir) : _logger{spdlog::get(name)} {
   if(_logger == nullptr) {
     try{
       auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(fmt::format("{}/{}.log", base_dir, name), true);
